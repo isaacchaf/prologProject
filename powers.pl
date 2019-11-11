@@ -1,3 +1,9 @@
+/* Write a predicate powers/3, which is called with as first argument a list of strictly
+positive integers, as second argument a strictly positive integer N, and a free third
+argument. Such a call must succeed exactly once and unify the third argument
+with the list that contains the smallest N integers (in ascending order) that are
+a positive (non-zero) power of one of the elements of the first argument.*/
+
 powers(Factors,N,Powers) :-
       sort(Factors,SFactors),
       pair(SFactors,Pairs),
