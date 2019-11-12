@@ -16,6 +16,8 @@ powers(Factors,N,Powers) :-
 pair([],[]).
 pair([X|R],[(X,X)|S]) :- pair(R,S).         % return example [(2,2),(3,3),(5,5)]
                                             % which is sorted and which has no two pairs
+                                            % in a recursive way takes the head and tail of the list
+                                            % and gets the pair and continues with the rest
 
 first_powers(N,[(Power,Factor)|PFs],[Power|Powers]) :-
     /*
@@ -37,7 +39,7 @@ first_powers(N,[(Power,Factor)|PFs],[Power|Powers]) :-
          
           remove_power(Power,PFs,PFs1),    % We remove this pair compute the next power of F (i.e. P*F)
           Power1 is Power * Factor,        % and insert the pair (P*F,F) into the pair-list respecting the invariants
-          sorted_insert(PFs1,(Power1,Factor),PFs2), % GIGJFJD
+          sorted_insert(PFs1,(Power1,Factor),PFs2), % 
           first_powers(N1,PFs2,Powers)  % compute the rest in a recursive form
         ).
         
@@ -45,12 +47,13 @@ remove_power(Power,PFsIn,PFsOut) :-
      /* 
          Remove pairs without taking the F-component of the pairs.not generating
          duplicates in the output, and also without reducing the pair-list
+         recursively
      */
      
-       ( PFsIn = [(Power,_)|RestPFsIn] ->
+       ( PFsIn = [(Power,_)|RestPFsIn] -> 
            remove_power(Power,RestPFsIn,PFsOut)
           ;
-           PFsOut = PFsIn
+           PFsOut = PFsIn 
           ).
   
 sorted_insert([],X,[X]).
