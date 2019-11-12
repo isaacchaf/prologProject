@@ -8,25 +8,38 @@ with the list that contains the smallest N integers (in ascending order) that ar
 a positive (non-zero) power of one of the elements of the first argument.*/
 
 powers(Factors,N,Powers) :-
-      sort(Factors,SFactors),
-      pair(SFactors,Pairs),
+      sort(Factors,SFactors), % sorts the list of factors from the smallest to the largest
+      % construct the list of pairs which are sorted  
+      pair(SFactors,Pairs),              % return example [(2,2),(3,3),(5,5)] 
       first_powers(N,Pairs,Powers).
   
 pair([],[]).
-pair([X|R],[(X,X)|S]) :- pair(R,S).
+pair([X|R],[(X,X)|S]) :- pair(R,S).         % return example [(2,2),(3,3),(5,5)]
+                                            % which is sorted and which has no two pairs
 
 first_powers(N,[(Power,Factor)|PFs],[Power|Powers]) :-
+    /*
+      In a pair (P,F), P is the smallest power of F that
+      is not in the solution list yet. So, the first component of the first element of the
+      pair-list is the next element in the output we are constructing.
+    */
+            
       ( N == 1 ->
           Powers = []
       ;
           N1 is N - 1,
-          remove_power(Power,PFs,PFs1),
-          Power1 is Power * Factor,
+          remove_power(Power,PFs,PFs1),  % We remove this pair, compute the next power of F (i.e. PF)
+          Power1 is Power * Factor   % and insert the pair (PF,F) into the pair-list, respecting the invariants.
           sorted_insert(PFs1,(Power1,Factor),PFs2),
           first_powers(N1,PFs2,Powers)
         ).
         
-remove_power(Power,PFsIn,PFsOut) :-
+remove_power(Power,PFsIn,PFsOut) :-  
+     /* 
+         Remove pairs without taking the F-component of the pairs.not generating
+         duplicates in the output, and also without reducing the pair-list
+     */
+     
        ( PFsIn = [(Power,_)|RestPFsIn] ->
            remove_power(Power,RestPFsIn,PFsOut)
           ;
