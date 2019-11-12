@@ -20,10 +20,8 @@ pair([X|R],[(X,X)|S]) :- pair(R,S).         % return example [(2,2),(3,3),(5,5)]
 first_powers(N,[(Power,Factor)|PFs],[Power|Powers]) :-
     /*
       In a pair (P,F), P is the smallest power of F that
-      is not in the solution list yet. So, the first component of the first element of the
-      pair-list is the next element in the output we are constructing.
-    */
-            
+      is not in the solution list yet.
+    */      
       ( N == 1 ->
           Powers = []
       ;  /* So the first component of the first element of the
