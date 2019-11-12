@@ -22,15 +22,23 @@ first_powers(N,[(Power,Factor)|PFs],[Power|Powers]) :-
       In a pair (P,F), P is the smallest power of F that
       is not in the solution list yet.
     */      
-      ( N == 1 ->
+      ( N == 1 ->  % condition for the program if N is set to 1 return an empty list
           Powers = []
-      ;  /* So the first component of the first element of the
+      ; 
+      
+       N1 is N - 1,  
+     /*
+      In a pair (P,F), P is the smallest power of F that
+      is not in the solution list yet.
+    */  
+     /* So the first component of the first element of the
          pair-list is the next element in the output we are constructing */
-          N1 is N - 1,
+         
+         
           remove_power(Power,PFs,PFs1),    % We remove this pair compute the next power of F (i.e. P*F)
           Power1 is Power * Factor,        % and insert the pair (P*F,F) into the pair-list respecting the invariants
           sorted_insert(PFs1,(Power1,Factor),PFs2), % GIGJFJD
-          first_powers(N1,PFs2,Powers)
+          first_powers(N1,PFs2,Powers)  % compute the rest in a recursive form
         ).
         
 remove_power(Power,PFsIn,PFsOut) :-  
