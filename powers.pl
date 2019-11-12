@@ -39,7 +39,7 @@ first_powers(N,[(Power,Factor)|PFs],[Power|Powers]) :-
          
           remove_power(Power,PFs,PFs1),    % We remove this pair compute the next power of F (i.e. P*F)
           Power1 is Power * Factor,        % and insert the pair (P*F,F) into the pair-list respecting the invariants
-          sorted_insert(PFs1,(Power1,Factor),PFs2), % 
+          sorted_insert(PFs1,(Power1,Factor),PFs2), % sort again the elemetns 
           first_powers(N1,PFs2,Powers)  % compute the rest in a recursive form
         ).
         
@@ -57,10 +57,10 @@ remove_power(Power,PFsIn,PFsOut) :-
           ).
   
 sorted_insert([],X,[X]).
-sorted_insert([A|R],X,Out) :-
-        ( A @< X ->
-            Out = [A|RestOut],
-            sorted_insert(R,X,RestOut)
-        ;
-            Out = [X,A|R]
+sorted_insert([A|R],X,Out) :-       
+        ( A @< X ->   % check if the head is smaller than the inserted element 
+            Out = [A|RestOut],  % if that is the case take the head of the list 
+            sorted_insert(R,X,RestOut) % continues with the algorith recursively
+        ;    
+            Out = [X,A|R]  % returns the list with the Power1 and factor as head and the rest of the tail.
         ).
