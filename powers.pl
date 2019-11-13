@@ -1,5 +1,7 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Contest II: 1995 Portland, USA 
 % 3. Powers 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 /* Write a predicate powers/3, which is called with as first argument a list of strictly
 positive integers, as second argument a strictly positive integer N, and a free third
