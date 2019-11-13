@@ -64,3 +64,8 @@ sorted_insert([A|R],X,Out) :-
         ;    
             Out = [X,A|R]  % returns the list with the Power1 and factor as head and the rest of the tail.
         ).
+  
+  /* 
+  Code retrieved from:
+  The First 10 Prolog Programming Contests (2005), by Demoen, B; Nguyen, P; Schrijvers, T; Troncon R.
+  */
